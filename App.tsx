@@ -5,12 +5,14 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {MainScreen, OnboardingScreen} from './src/screen';
-import {AsyncStorageKeys} from './src/storage';
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { MainScreen, OnboardingScreen } from './src/screen';
+import { AsyncStorageKeys } from './src/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   // const isDarkMode = useColorScheme() === 'dark';
@@ -20,11 +22,9 @@ function App(): React.JSX.Element {
   // };
   const [showOnboarding, setShowOnboarding] = useState<boolean>(true);
 
-  const Stack = createNativeStackNavigator();
-
   useEffect(() => {
     checkOnboardState();
-  });
+  }, []);
 
   const checkOnboardState = async () => {
     const data = await AsyncStorage.getItem(AsyncStorageKeys.onboard);
@@ -33,7 +33,7 @@ function App(): React.JSX.Element {
     } else {
       await AsyncStorage.setItem(
         AsyncStorageKeys.onboard,
-        JSON.stringify({onboard: false}),
+        JSON.stringify({ onboard: false }),
       );
       setShowOnboarding(true);
     }
@@ -53,13 +53,13 @@ function App(): React.JSX.Element {
           <Stack.Screen
             name="Onboard"
             component={OnboardingScreen}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
         ) : (
           <Stack.Screen
-            name="Main"
+            name="Home"
             component={MainScreen}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
         )}
       </Stack.Navigator>

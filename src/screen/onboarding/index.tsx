@@ -10,23 +10,21 @@ import Onboarding from 'react-native-onboarding-swiper';
 import LottieView from 'lottie-react-native';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { AsyncStorageKeys } from '../../storage';
-// import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
-const OnboardingScreen = ({ ...props }) => {
+const doneButton = ({ ...data }) => (
+  <TouchableOpacity style={styles.doneButton} {...data}>
+    <Text>Finish</Text>
+  </TouchableOpacity>
+);
+
+const OnboardingScreen = ({ navigation }: any) => {
   const { setItem } = useAsyncStorage(AsyncStorageKeys.onboard);
-  //   const navigation = useNavigation();
 
-  const doneButton = ({ ...data }) => (
-    <TouchableOpacity style={styles.doneButton} {...data}>
-      <Text>Finish</Text>
-    </TouchableOpacity>
-  );
-
-  const handleDone = () => {
-    props.navigation.navigate('Main');
-    setItem(JSON.stringify({ onboard: true }));
+  const handleDone = async () => {
+    await setItem(JSON.stringify({ onboard: true }));
+    navigation.navigate('Home');
   };
 
   return (
