@@ -9,6 +9,8 @@ const ScreenWrapper: FC<{ children: ReactNode }> = ({ children }) => {
 const styles = StyleSheet.create({
   wrapper: {
     paddingHorizontal: 10,
+    backgroundColor: 'white',
+    flex: 1,
   },
 });
 

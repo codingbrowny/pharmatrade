@@ -4,3 +4,4 @@ export { default as HomeScreen } from './home';
 export { default as AccountScreen } from './account';
 export { default as CartScreen } from './cart';
 export { default as SearchScreen } from './search';
+export { default as SettingsScreen } from './settings';
